@@ -2,7 +2,7 @@ const path = require('path');
 
 
 module.exports = {
-  mode: process.env.NODE_ENV, 
+  mode: process.env.NODE_ENV,
   entry: './frontend/index.js',
   output: {
     filename: 'bundle.js',
@@ -22,7 +22,8 @@ module.exports = {
       }
     },
     {
-      test: /\.s[ac]ss$/i,
+      test: /\.css$/i,
+      //test: /\.s[ac]ss$/i,
       use: ['style-loader', 'css-loader', 'sass-loader']
     }
     ]
@@ -38,6 +39,12 @@ module.exports = {
       '/post': {
         target: 'http://localhost:3000/'
 		  },
+      '/login': {
+        target: 'http://localhost:3000/'
+		  },
+      '/homepage': {
+        target: 'http://localhost:3000/'
+      },
 	  }
   },
 }
