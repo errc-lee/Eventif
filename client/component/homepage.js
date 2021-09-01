@@ -30,15 +30,15 @@ class HomePage extends Component {
     // handleLakerClick(event) {
     //     this.setState({lowestLakerTicket: event.target.value});
     //   }
-    
+
     //   handleClipperClick(event) {
     //     this.setState({lowestClipperTicket: event.target.value});
     //   }
-    
+
     //   handleRamClick(event) {
     //     this.setState({lowestRamTicket: event.target.value});
     //   }
-    
+
     //   handleDodgerClick(event) {
     //     this.setState({lowestDodgerPrice: event.target.value});
     //   }
@@ -64,18 +64,18 @@ class HomePage extends Component {
     filterData = (reference) => {
         let baseApi = 'https://api.seatgeek.com/2/events?client_id=MjMwODQ2OTZ8MTYzMDA5MTEwMy4xMjAzNg&geoip=true&performers.slug=';
         const teamArr = ['los-angeles-dodgers', 'los-angeles-lakers', 'los-angeles-clippers', 'los-angeles-angels', 'los-angeles-chargers', 'los-angeles-rams', 'los-anageles-galaxy'];
-        
+
         for (let i = 0; i < teamArr.length-1; i++){
         let teamApi = baseApi +teamArr[reference];
         this.getData(teamApi,reference)}
     }
     getData = (teamApi, reference) =>{fetch(teamApi)
     .then(response => response.json())
-    .then(data =>  
+    .then(data =>
      {let today = new Date();
       let date = today.getFullYear()+'-'+'0'+(today.getMonth()+1)+'-'+today.getDate();
       console.log(date);
-      if(data.events[0].datetime_local.substring(0,10) === date) 
+      if(data.events[0].datetime_local.substring(0,10) === date)
       if (reference ===0)
      { this.setState({lowestDodgerPrice: "$" + data.events[0].stats.lowest_sg_base_price + " lowest Dodgers ticket price", DodgerUrl: data.events[0].url }) }
      else if (reference === 3)
@@ -112,7 +112,7 @@ class HomePage extends Component {
                     <button className="angelButton" value={this.state.lowestAngelPrice} onClick={(e)=> {
                         e.preventDefault();
                         this.filterData(3)
-                        
+
                         }}>ANGELS</button>
                     <button className="lafcButton" onClick="lowest price lafc ticket')">LAFC</button>
                     <button className="galaxyButton" onClick="lowest price galaxy ticket')">GALAXY</button>

@@ -1,4 +1,3 @@
-
 // Basic JEST TEST to check functionality
 describe('jest basic test', () => {
   it('can add one and one and get 2', () => {

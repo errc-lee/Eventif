@@ -32,7 +32,6 @@ module.exports = {
       directory: path.join(__dirname, '/client'),
     },
     proxy: {
-      '/': 'http://localhost:3000',
       '/post': {
         target: 'http://localhost:3000/',
       },
