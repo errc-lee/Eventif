@@ -11,4 +11,5 @@ yarn-debug.log*
 yarn-error.log*
 
 # output from webpack
-dist/
+build/
+package-lock.json

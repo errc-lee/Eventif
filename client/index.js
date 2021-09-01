@@ -19,19 +19,19 @@ import { useHistory,
     } from 'react-router-dom';
 
 import HomePage from './component/homepage';
-import './styles/styles.css'
+import './styles/styles.css';
 
 let validUser = true;
 //let linkTo = '/';
 
 
 const App = () => {
-  const signUp = (user, pass) => { 
+  const signUp = (user, pass) => {
       console.log(user);
     fetch("/post", {
       method: 'POST',
       body: JSON.stringify(
-        {username : user, 
+        {username : user,
       password: pass}),
         headers: {
           'Content-Type': 'application/json',
@@ -41,12 +41,12 @@ const App = () => {
         .then(result => {result}
         )};
 
-        const Login = (user, pass) => { 
+        const Login = (user, pass) => {
             console.log(user);
           fetch("/login", {
             method: 'POST',
             body: JSON.stringify(
-              {username : user, 
+              {username : user,
             password: pass}),
               headers: {
                 'Content-Type': 'application/json',
@@ -63,11 +63,11 @@ const App = () => {
                 console.log(result)
               })
         };
-            
+
   const getData = () =>{fetch('https://api.seatgeek.com/2/events?client_id=MjMwODQ2OTZ8MTYzMDA5MTEwMy4xMjAzNg&geoip=true&performers.slug=los-angeles-dodgers')
   .then(response => response.json())
   .then(data => console.log(data))}
-  
+
 //   const usernameTest = document.getElementById('username').value
 //   console.log(usernameTest);
 // console.log('here')
@@ -83,7 +83,7 @@ console.log()
     // console.log(linkTo)
     <Router>
       <Switch>
-      <Route exact path="/" component={App}> 
+      <Route exact path="/" component={App}>
           <h1 className="primary">THE NOSEBLEEDS</h1>
           <div id='login'>
            <input type ='text' id='username' placeholder="username"></input>

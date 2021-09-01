@@ -1,5 +1,6 @@
-const User = require('../models/userModel.js');
 const bcrypt = require('bcryptjs');
+const User = require('../models/userModel.js');
+
 const userController = {};
 
 // CREATE USER MIDDLEWARE - for creating a new user
@@ -29,24 +30,21 @@ userController.verifyUser = async (req, res, next) => {
       } else {
         console.log('username/password combo does not match');
         return next(err);
-      }
-    })
+}
+});
+  } catch (err) {
+    console.log('cannot find user');
+  }
+};
 
-    } catch (err) {
-      console.log('cannot find user');
-    }
-  };
-    
-
-    // if (existingUser.password === req.body.password) {
-      // return next();
-    // } else {
-      // return res.render('/', 'sorry, username/password combo does not match')
-    // }
-  // } catch (err) {
-    // return res.render('/', {error: err});
-  //}
-
+// if (existingUser.password === req.body.password) {
+// return next();
+// } else {
+// return res.render('/', 'sorry, username/password combo does not match')
+// }
+// } catch (err) {
+// return res.render('/', {error: err});
+// }
 
 // export
 module.exports = userController;
