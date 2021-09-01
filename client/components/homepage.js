@@ -71,11 +71,10 @@ class HomePage extends Component {
     }
     getData = (teamApi, reference) =>{fetch(teamApi)
     .then(response => response.json())
-    .then(data =>
-     {let today = new Date();
-      let date = today.getFullYear()+'-'+'0'+(today.getMonth()+1)+'-'+today.getDate();
-      console.log(date);
-      if(data.events[0].datetime_local.substring(0,10) === date)
+    .then(data =>{    //  {let today = new Date();
+    //   let date = today.getFullYear()+'-'+'0'+(today.getMonth()+1)+'-'+today.getDate();
+    //   console.log(date);
+    //   if(data.events[0].datetime_local.substring(0,10) === date)
       if (reference ===0)
      { this.setState({lowestDodgerPrice: "$" + data.events[0].stats.lowest_sg_base_price + " lowest Dodgers ticket price", DodgerUrl: data.events[0].url }) }
      else if (reference === 3)
