@@ -7,7 +7,7 @@ const userController = {};
 userController.createUser = async (req, res, next) => {
   try {
     console.log('this is the body', req.body);
-    const newUser = await User.create(req.body);
+    const newUser = await User.create({email: req.body.email, username: req.body.username, password: req.body.password });
     console.log(newUser);
     return next();
   } catch (err) {
@@ -18,6 +18,7 @@ userController.createUser = async (req, res, next) => {
 
 // VERIFY USER MIDDLEWARE - for login purposes
 userController.verifyUser = async (req, res, next) => {
+  console.log('REQUEST TO VERIFY USER: ', req.body);
   try {
     const existingUser = await User.findOne({username: req.body.username}).exec()
     res.locals.userId = existingUser._id;

@@ -1,13 +1,59 @@
 import * as types from '../constants/actionTypes';
-import React from 'react';
 
+// Reducer that handles user login, logout and authentication
 
-import * as types from '../constants/actionTypes';
-import React from 'react';
+const initialState = {
+  username: null,
+  useremail: null,
+  authUser: false,
+  loginForm: { email: '', password: '' },
+  signupForm: { email: '', username: '', password: '' },
+};
 
+const userReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case types.UPDATE_LOGIN:
+      console.log('TYRING TO UPDATE LOGIN STATE FORM: ', action.payload.field, action.payload.value);
+      return {
+        ...state,
+        loginForm: { ...state.loginForm, [action.payload.field]: action.payload.value },
+      };
 
-const userReducer = ( state = initialState, action) =>{
+    // case types.SEND_LOGIN:
+    //   console.log('TRYING TO SEND LOGIN TO SERVER: ', action.payload.email, action.payload.password);
+    //   return state;
 
-}
+    case types.SEND_SIGNUP:
+      console.log('TRYING TO SEND SIGNUP TO SERVER: ', action.payload.email, action.payload.username, action.payload.password);
+      return state;
 
-export default tickerReducer;
+    case types.LOGIN_SUCCESSFUL:
+      console.log('LOGGED IN SUCCESSFULLY!');
+      return {
+        ...state,
+        authUser: true,
+      };
+
+    case types.SEND_LOGOUT:
+      console.log('LOGGING OUT!');
+      return {
+        username: null,
+        useremail: null,
+        authUser: false,
+        loginForm: { email: '', password: '' },
+        signupForm: { email: '', username: '', password: '' },
+      };
+
+    case types.UPDATE_SIGNUP:
+      console.log('TYRING TO UPDATE SIGNUP FORM: ', action.payload.field, action.payload.value);
+      return {
+        ...state,
+        signupForm: { ...state.signupForm, [action.payload.field]: action.payload.value },
+      };
+
+    default:
+      return state;
+  }
+};
+
+export default userReducer;

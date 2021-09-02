@@ -28,13 +28,13 @@ if (process.env.NODE_ENV !== 'development') {
 // });
 
 app.post('/post', userController.createUser, (req, res) => {
-  console.log('jake paul wins');
   res.status(200);
-  res.redirect('/Frontend/Component/homepage.js');
+
 });
 
 app.post('/login', userController.verifyUser, (req, res) => {
-  return res.json('yes');
+  res.status(200);
+
 });
 
 // 404 Handler

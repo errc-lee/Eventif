@@ -7,7 +7,7 @@ import { useHistory,
         Switch
     } from 'react-router-dom';
 
-import HomePage from './component/homepage';
+import HomePage from './components/homepage';
 import './styles/styles.css';
 
 let validUser = true;
