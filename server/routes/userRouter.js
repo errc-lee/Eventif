@@ -6,20 +6,16 @@ const userRouter = express.Router();
 
 userRouter.post('/signup',
   userController.createUser,
-  (req, res) => (
-    res.status(200).json(res.locals.createdUser)
-  ));
-
-userRouter.get('/login', (req, res) => {
-  return res.status(200).json({
-    username: res.locals.username,
-    email: res.locals.email,
+  (req, res) => {
+    return res.status(200).json(res.locals.createdUser);
   });
-});
 
-// userRouter.get('/', (req, res, next) => {
-//   return next();
-// });
+userRouter.post('/login',
+  userController.login,
+  (req, res) => {
+    return res.json(res.locals.username);
+  });
+
 
 // -------Copied from server.js
 
