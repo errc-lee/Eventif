@@ -62,12 +62,11 @@ class HomePage extends Component {
   // .stats.lowest_price_good_deals
   // .url
   filterData = (reference) => {
-      let baseApi = 'https://api.seatgeek.com/2/events?client_id=MjMwODQ2OTZ8MTYzMDA5MTEwMy4xMjAzNg&geoip=true&performers.slug=';
       const teamArr = ['los-angeles-dodgers', 'los-angeles-lakers', 'los-angeles-clippers', 'los-angeles-angels', 'los-angeles-chargers', 'los-angeles-rams', 'los-anageles-galaxy'];
-
       for (let i = 0; i < teamArr.length-1; i++){
       let teamApi = baseApi +teamArr[reference];
-      this.getData(teamApi,reference)}
+      this.getData(teamApi,reference)}      let baseApi = 'https://api.seatgeek.com/2/events?client_id=MjMwODQ2OTZ8MTYzMDA5MTEwMy4xMjAzNg&geoip=true&performers.slug=';
+
   }
   getData = (teamApi, reference) =>{fetch(teamApi)
   .then(response => response.json())

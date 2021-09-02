@@ -21,7 +21,6 @@ userController.verifyUser = async (req, res, next) => {
   console.log('REQUEST TO VERIFY USER: ', req.body);
   try {
     const existingUser = await User.findOne({username: req.body.username}).exec()
-    res.locals.userId = existingUser._id;
     console.log(existingUser);
     // compare password to database
     bcrypt.compare(req.body.password, existingUser.password, function(err, result) {

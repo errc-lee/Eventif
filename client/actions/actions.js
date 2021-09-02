@@ -65,6 +65,30 @@ export const sendLogoutActionCreator = () => ({
 });
 
 // ## TICKET REDUCER ACTION TYPES ##
-export const getEventsActionCreator = () => {
+export const getEventsActionCreator = (dateRange) => {
+  return (dispatch) => {
+    const endpoint = 'https://api.seatgeek.com/2/events?client_id=MjMwODQ2OTZ8MTYzMDA5MTEwMy4xMjAzNg&geoip=true';
 
+    if (dateRange) {
+      const today = new Date().toISOString();
+      const endDate = new Date();
+      endDate.setDate(test2.getDate() + parseInt(dateRange))
+      endDate = endDate.toISOString();
+      endpoint += 'datetime_utc.gte=' + today + '&datetime_utc.lte=' + endDate;
+    }
+
+    fetch(endpoint)
+      .then(response => response.json())
+      .then(data =>{
+        dispatch({
+          type: types.GET_EVENTS,
+          payload: data.events,
+        })
+      });
+  };
 };
+
+export const setDateRangeActionCreator = (dateRange) => ({
+  type: types.SET_DATE_RANGE,
+  payload: { dateRange },
+});
