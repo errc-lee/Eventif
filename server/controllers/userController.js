@@ -6,6 +6,8 @@ const userController = {};
 // CREATE USER MIDDLEWARE - for creating a new user
 userController.createUser = async (req, res, next) => {
   console.log('trying to create user', req.body);
+
+  // Need to handle case where username/email is already in database???
   try {
     const { email, username, password } = req.body;
     const userQ = `
@@ -13,12 +15,14 @@ userController.createUser = async (req, res, next) => {
     VALUES ($1, $2, $3)
     RETURNING *`;
     const result = await db.query(userQ, [email, username, password]);
-    console.log('DB USER CREATION RESULT: ', result);
     res.locals.email = email;
     res.locals.username = username;
     return next();
   } catch (err) {
-    return next({ error: err });
+    return next({
+      log: `Error in userController.createUser when trying to create a user in DB: ERROR: ${err} `,
+      message: { err: 'Error creating new user in DB' },
+    });
   }
 };
 
