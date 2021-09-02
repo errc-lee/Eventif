@@ -66,6 +66,7 @@ const App = ({
       </Route>
       <Route path="/signup">
         <Signup
+          authUser={authUser}
           updateSignup={updateSignup}
           signupForm={signupForm}
           sendSignup={sendSignup}
@@ -73,6 +74,7 @@ const App = ({
       </Route>
       <Route path="/login">
         <Login
+          authUser={authUser}
           updateLogin={updateLogin}
           loginForm={loginForm}
           sendLogin={sendLogin}
