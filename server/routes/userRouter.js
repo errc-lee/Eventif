@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const userController = require('../controllers/userController');
+const watchlistController = require('../controllers/watchlistController');
 
 const userRouter = express.Router();
 
@@ -16,19 +17,16 @@ userRouter.post('/login',
     return res.json(res.locals.userInfo);
   });
 
+userRouter.get('/watchlist/:id',
+  watchlistController.getWatchlist,
+  (req, res) => {
+    return res.json(res.locals.watchlist)
+  });
 
-// -------Copied from server.js
-
-// app.post('/post', userController.createUser, (req, res) => {
-//   res.status(200);
-//   res.redirect('/client/Component/homepage.js');
-// });
-
-// app.post('/login', userController.verifyUser, (req, res) => {
-//   return res.json('yes');
-// });
-// creating an account
-// userRouter.get('/signup',(req, res) => {
-// });
+userRouter.post('/watchlist',
+  watchlistController.addWatchlist,
+  (req, res) => {
+    return res.json(res.locals.added)
+  });
 
 module.exports = userRouter;
