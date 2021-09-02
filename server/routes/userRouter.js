@@ -13,7 +13,7 @@ userRouter.post('/signup',
 userRouter.post('/login',
   userController.login,
   (req, res) => {
-    return res.json(res.locals.username);
+    return res.json(res.locals.userInfo);
   });
 
 
