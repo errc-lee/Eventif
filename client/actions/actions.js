@@ -7,28 +7,33 @@ export const updateLoginActionCreator = (field, value) => ({
   payload: { field, value },
 });
 
-export const sendLoginActionCreator = (email, password) => {
-  return (dispatch) => {
-    fetch('/login', {
+export const sendLoginActionCreator = (email, password) => (
+  (dispatch) => {
+    fetch('/user/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        username: email,
+        email: email,
         password: password
       }),
     }).then(response => {
       console.log('RESPONSE FROM SERVER AFTER LOGIN ATTEMPT: ', response.status);
       if (response.status === 200) {
+        return response.json();
+      }
+      throw new Error('Bad response from server when trying to login: ', response.status)
+    })
+      .then((loginData) => {
+        console.log('LOGIN DATA IS: ', loginData);
         dispatch({
           type: types.LOGIN_SUCCESSFUL,
+          payload: loginData,
         });
-      }
-    })
+      })
       .catch(err => console.log('sendLoginActionCreator ERR:', err));
-  };
-};
+  });
 
 export const updateSignupActionCreator = (field, value) => ({
   type: types.UPDATE_SIGNUP,
@@ -56,7 +61,7 @@ export const sendSignupActionCreator = (email, username, password) => (
       throw new Error('Bad response from server when trying to sign up: ', response.status);
     })
       .then((loginData) => {
-        console.log('LOGIN DATA IS: ', loginData);
+        console.log('SIGNUP DATA IS: ', loginData);
         dispatch({
           type: types.LOGIN_SUCCESSFUL,
           payload: loginData,
