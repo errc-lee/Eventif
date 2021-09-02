@@ -40,7 +40,7 @@ userController.login = async (req, res, next) => {
       FROM users
       WHERE email = $1 AND pw = $2;`;
     const result = await db.query(queryString, data);
-    
+
     // Check if there exists email in database
     if (!result.rows.length) {
       res.status(403);
