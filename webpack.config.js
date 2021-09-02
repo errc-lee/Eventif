@@ -20,25 +20,20 @@ module.exports = {
       },
     },
     {
-      test: /\.css$/i,
+      test: /\.(scss)$/i,
       use: ['style-loader', 'css-loader', 'sass-loader'],
     },
     ],
   },
   devServer: {
+    historyApiFallback: true,
     hot: true,
     port: 8080,
     static: {
       directory: path.join(__dirname, '/client'),
     },
     proxy: {
-      '/post': {
-        target: 'http://localhost:3000/',
-      },
-      '/login': {
-        target: 'http://localhost:3000/',
-      },
-      '/homepage': {
+      '/user': {
         target: 'http://localhost:3000/',
       },
     },

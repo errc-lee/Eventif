@@ -20,12 +20,19 @@ if (process.env.NODE_ENV !== 'development') {
   app.use('/', (req, res) => res.status(200).sendFile(path.join(__dirname, '../client/index.html')));
 }
 
-// CATCH ALL ERROR HANDLER
+// Unhandled Route Error Handler
 app.use((req, res) => res.status(404).send('Not Found'));
 
-// GLOBAL ERROR HANDLER
+// GLOBAL ERROR HANDLER - Internal Errors
 app.use((err, req, res, next) => {
-  res.status(500).send(err);
+  const defaultErr = {
+    log: 'Express error handler caught unknown middleware error',
+    status: 500,
+    message: { err: 'An error occurred' },
+  };
+  const errorObj = { ...defaultErr, ...err };
+  console.log(errorObj.log);
+  return res.status(errorObj.status).json(errorObj.message);
 });
 
 module.exports = app.listen(PORT, () => { console.log(`Listening on port ${PORT}...`); });
