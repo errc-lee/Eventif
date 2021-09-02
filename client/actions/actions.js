@@ -71,17 +71,20 @@ export const sendLogoutActionCreator = () => ({
 });
 
 // ## TICKET REDUCER ACTION TYPES ##
-export const getEventsActionCreator = (dateRange) => {
-  return (dispatch) => {
-    const endpoint = 'https://api.seatgeek.com/2/events?client_id=MjMwODQ2OTZ8MTYzMDA5MTEwMy4xMjAzNg&geoip=true';
-
+export const getEventsActionCreator = (dateRange) => (
+  (dispatch) => {
+    let endpoint = 'https://api.seatgeek.com/2/events?client_id=MjMwODQ2OTZ8MTYzMDA5MTEwMy4xMjAzNg&geoip=true&per_page=1000';
+    const today = new Date().toISOString();
+    let endDate = new Date();
     if (dateRange) {
-      const today = new Date().toISOString();
-      const endDate = new Date();
-      endDate.setDate(test2.getDate() + parseInt(dateRange))
+      endDate.setDate(endDate.getDate() + parseInt(dateRange))
       endDate = endDate.toISOString();
-      endpoint += 'datetime_utc.gte=' + today + '&datetime_utc.lte=' + endDate;
+    } else {
+      endDate.setDate(endDate.getDate() + 1)
+      endDate = endDate.toISOString();
     }
+
+    endpoint += '&datetime_utc.gte=' + today + '&datetime_utc.lte=' + endDate;
 
     fetch(endpoint)
       .then(response => response.json())
@@ -91,10 +94,15 @@ export const getEventsActionCreator = (dateRange) => {
           payload: data.events,
         })
       });
-  };
-};
+  }
+);
 
-export const setDateRangeActionCreator = (dateRange) => ({
-  type: types.SET_DATE_RANGE,
-  payload: { dateRange },
+export const eventFilterActionCreator = (filterStr) => ({
+  type: types.EVENT_FILTER,
+  payload: filterStr,
 });
+
+// export const setDateRangeActionCreator = (dateRange) => ({
+//   type: types.SET_DATE_RANGE,
+//   payload: { dateRange },
+// });

@@ -11,3 +11,4 @@ export const SEND_LOGOUT = 'SEND_LOGOUT';
 // ## TICKET REDUCER ACTION TYPES ##
 export const GET_EVENTS = 'GET_EVENTS';
 export const SET_DATE_RANGE = 'SET_DATE_RANGE';
+export const EVENT_FILTER = 'EVENT_FILTER';
