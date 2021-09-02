@@ -8,7 +8,7 @@ const app = express();
 const cookieController = {};
 
 // Setting a cookie on the user's browser
-cookieController.setCookie = async (req, res, next) => {
+cookieController.setCookie = (req, res, next) => {
   try {
     const uniqueNum = Math.round(Math.random() * 100);
     res.cookie('session', uniqueNum);
@@ -22,7 +22,7 @@ cookieController.setCookie = async (req, res, next) => {
 };
 
 // Setting the session id to the aforementioned cookie's value
-cookieController.setSSIDCookie = async (req, res, next) => {
+cookieController.setSSIDCookie = (req, res, next) => {
   try {
     return next();
   } catch (err) {
