@@ -1,34 +1,17 @@
-const mongoose = require('mongoose');
+// Object destructure the Pool property from pg
+const { Pool } = require('pg');
 
-const Schema = mongoose.Schema; //{ Schema } = mongoose?
+// Access our db hosted from ElephantSQL
+const elephant_URI = 'postgres://kgpturay:ts7ckBae45NaQn9meVTMg7bHr9TT03NK@kashin.db.elephantsql.com/kgpturay';
 
-const SALT_WORK_FACTOR = 10;
-const bcrypt = require('bcryptjs');
-
-const userSchema = new Schema({
-  email: { type: String, required: false, unique: false },
-  username: { type: String, required: true, unique: true },
-  password: { type: String, required: true },
-  favorites: { type: String, required: false },
+// Create a pool for the connection URI
+const pool = new Pool({
+  connectionString: elephant_URI,
 });
 
-// encrypting password
-userSchema.pre('save', async function(next) {
-  // hash password and replace
-  try {
-    this.password = await bcrypt.hash(this.password, SALT_WORK_FACTOR);
-    return next();
-  } catch (err) {
-    console.log('Error encrypting password');
-    return next(err);
-  }
-});
-
-module.exports = mongoose.model('User', userSchema);
-/**
- * userSchema.pre('save', async function(next) {
- *
- * this.password = await bcrypt.hash
- *
- * })
- */
+module.exports = {
+  query: (text, params, callback) => {
+    console.log('Executed query: ', text);
+    return pool.query(text, params, callback);
+  },
+};
