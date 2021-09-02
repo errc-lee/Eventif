@@ -1,7 +1,15 @@
 import React from 'react';
+import { Link, Redirect } from 'react-router-dom';
 
 // Login Component
-const Login = props => (
+const Login = ({ authUser, updateLogin, loginForm, sendLogin }) => {
+  // If authorised redirec to root
+  if (authUser) {
+    return <Redirect to="/" />;
+  }
+
+  // Otherwise display login page
+  return (
   <div className="login-container">
     <h1>LOGIN HERE !</h1>
     <ul>
@@ -14,7 +22,7 @@ const Login = props => (
           size="20"
           placeholder="Email"
           required
-          onChange={(e) => props.updateLogin('email', e.target.value)}
+          onChange={(e) => updateLogin('email', e.target.value)}
           // value={props.loginForm.email}
         />
       </li>
@@ -27,7 +35,7 @@ const Login = props => (
           size="20"
           placeholder="Password"
           required
-          onChange={(e) => props.updateLogin('password', e.target.value)}
+          onChange={(e) => updateLogin('password', e.target.value)}
           // value={props.loginForm.password}
         />
       </li>
@@ -37,11 +45,16 @@ const Login = props => (
     <button
       className="login-button"
       type="button"
-      onClick={() => props.sendLogin(props.loginForm.email, props.loginForm.password)}
+      onClick={() => sendLogin(loginForm.email, loginForm.password)}
     >
       Log In
     </button>
+    <p>
+      No Account?
+      <Link to="/login">Sign Up</Link>
+    </p>
   </div>
-);
+  );
+};
 
 export default Login;
