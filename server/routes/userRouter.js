@@ -4,13 +4,11 @@ const userController = require('../controllers/userController');
 
 const userRouter = express.Router();
 
-userRouter.post('/signup', userController.createUser, (req, res) => {
-  console.log('Reached end of signup route: ', res.locals);
-  return res.status(200).json({
-    username: res.locals.username,
-    email: res.locals.email,
-  });
-});
+userRouter.post('/signup',
+  userController.createUser,
+  (req, res) => (
+    res.status(200).json(res.locals.createdUser)
+  ));
 
 userRouter.get('/login', (req, res) => {
   return res.status(200).json({

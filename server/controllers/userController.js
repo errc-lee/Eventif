@@ -15,8 +15,7 @@ userController.createUser = async (req, res, next) => {
     VALUES ($1, $2, $3)
     RETURNING *`;
     const result = await db.query(userQ, [email, username, password]);
-    res.locals.email = email;
-    res.locals.username = username;
+    res.locals.createdUser = { email, username };
     return next();
   } catch (err) {
     return next({
