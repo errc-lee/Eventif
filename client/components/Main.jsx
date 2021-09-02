@@ -37,17 +37,26 @@ const Main = (props) => {
           <div className="card-body">
             <h5 className="card-title">{eventObj.title} <span className="card-subtitle"></span></h5>
             <h6 className="card-subtitle">{eventObj.datetime_local.slice(11)} - {eventObj.datetime_local.slice(0, 10)}</h6>
-            <p className="card-text prices">
-              <span>
-                Lowest Price: ${eventObj.stats.lowest_sg_base_price}
-              </span>
-              <span>
-                Average Price: ${eventObj.stats.average_price}
-              </span>
-              <span>
-                Num. Listings: {eventObj.stats.listing_count}
-              </span>
-            </p>
+
+            {eventObj.stats.listing_count
+              ? (
+                <p className="card-text prices">
+                  <span>
+                    Lowest Price: ${eventObj.stats.lowest_sg_base_price}
+                  </span>
+                  <span>
+                    Average Price: ${eventObj.stats.average_price}
+                  </span>
+                  <span>
+                    Num. Listings: {eventObj.stats.listing_count}
+                  </span>
+                </p>
+              )
+              : (
+                <p className="card-text prices">
+                  No tickets currently listed!
+                </p>
+              )}
             <div className="btn-group">
               <a className="btn btn-sm btn-primary" href={eventObj.url}>Book Tickets</a>
               <a className="btn btn-sm btn-info" href={eventObj.url}>Add to Watchlist</a>
