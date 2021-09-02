@@ -2,6 +2,9 @@ const db = require('../models/userModel');
 const express = require('express');
 const cookieParser = require('cookie-parser');
 
+const app = express();
+// app.use(cookieParser());
+
 const cookieController = {};
 
 // Setting a cookie on the user's browser
