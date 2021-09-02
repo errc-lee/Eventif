@@ -9,11 +9,11 @@ const mapStateToProps = ({ tickets }) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  getEvents: () => {
-    dispatch(actions.getEventsActionCreator());
+  getEvents: (dateRange) => {
+    dispatch(actions.getEventsActionCreator(dateRange));
   },
-  chooseDate: (value) => {
-    dispatch(actions.getEventsActionCreator(range));
+  eventFilter: (filterStr) => {
+    dispatch(actions.eventFilterActionCreator(filterStr));
   },
 });
 
@@ -37,17 +37,26 @@ const Main = (props) => {
           <div className="card-body">
             <h5 className="card-title">{eventObj.title} <span className="card-subtitle"></span></h5>
             <h6 className="card-subtitle">{eventObj.datetime_local.slice(11)} - {eventObj.datetime_local.slice(0, 10)}</h6>
-            <p className="card-text prices">
-              <span>
-                Lowest Price: ${eventObj.stats.lowest_sg_base_price}
-              </span>
-              <span>
-                Average Price: ${eventObj.stats.average_price}
-              </span>
-              <span>
-                Num. Listings: {eventObj.stats.listing_count}
-              </span>
-            </p>
+
+            {eventObj.stats.listing_count
+              ? (
+                <p className="card-text prices">
+                  <span>
+                    Lowest Price: ${eventObj.stats.lowest_sg_base_price}
+                  </span>
+                  <span>
+                    Average Price: ${eventObj.stats.average_price}
+                  </span>
+                  <span>
+                    Num. Listings: {eventObj.stats.listing_count}
+                  </span>
+                </p>
+              )
+              : (
+                <p className="card-text prices">
+                  No tickets currently listed!
+                </p>
+              )}
             <div className="btn-group">
               <a className="btn btn-sm btn-primary" href={eventObj.url}>Book Tickets</a>
               <a className="btn btn-sm btn-info" href={eventObj.url}>Add to Watchlist</a>
@@ -62,21 +71,47 @@ const Main = (props) => {
   return (
     <div className="container">
       <h1>Events Near You:</h1>
-      <select onChange={(e) => props.chooseDate('value', e.target.value)}>
-        <option value="">Today</option>
-        <option value="7">Next 7 Days</option>
-        <option value="30">Next 30 Days</option>
-      </select>
-      <button type="button"
+
+      <p>Select Date Range:
+        <select
+        onChange={(e) => {
+          console.log(e.target.value);
+          props.getEvents(e.target.value);
+        }}
+        >
+          <option value="">Next 24 Hours</option>
+          <option value="7">Next 7 Days</option>
+          <option value="30">Next 30 Days</option>
+        </select>
+      </p>
+
+      <p>Filter Events by type:
+        <select
+          onChange={(e) => {
+            console.log('CHanged event filter: ', e.target.value);
+            props.eventFilter(e.target.value);
+          }}
+        >
+          <option value="">All Events</option>
+          <option value="sports">Sporting Events</option>
+          <option value="concert">Concerts</option>
+          <option value="theater">Theater</option>
+          <option value="comedy">Comedy Shows</option>
+        </select>
+      </p>
+
+
+      {/* <button type="button"
       // onClick {() => props. > }
       >
         Find Events
-      </button>
+      </button> */}
+      <hr />
       <h3>{`${props.eventList.length} events found:`}</h3>
 
       {/* EVENT CARDS */}
       <div className="row">
-        {events}
+        {events.length ? (events) : <h3>No events found!</h3>}
       </div>
     </div>
 

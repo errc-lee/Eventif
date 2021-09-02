@@ -15,7 +15,7 @@ userRouter.post('/login',
   userController.login,
   cookieController.setCookie,
   (req, res) => {
-    return res.json(res.locals.username);
+    return res.json(res.locals.userInfo);
   });
 
 

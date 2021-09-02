@@ -14,11 +14,11 @@ userController.createUser = async (req, res, next) => {
     const userQ = `
       INSERT INTO users (email, username, pw)
       VALUES ($1, $2, $3)
-      RETURNING *`;
+      RETURNING user_id, email, username`;
     const result = await db.query(userQ, [email, username, password]);
-    res.locals.createdUser = { email, username };
+    res.locals.createdUser = result.rows[0];
     return next();
-  } 
+  }
   catch (err) {
     return next({
       log: `Error in userController.createUser, ERROR: ${err} `,
@@ -36,7 +36,7 @@ userController.login = async (req, res, next) => {
     const { email, password } = req.body;
     const data = [email, password];
     const queryString = `
-      SELECT email, pw, username
+      SELECT user_id, email, username
       FROM users
       WHERE email = $1 AND pw = $2;`;
     const result = await db.query(queryString, data);
@@ -45,7 +45,7 @@ userController.login = async (req, res, next) => {
     if (!result.rows.length) {
       res.status(403);
     } else {
-      res.locals.username = result.rows[0].username;
+      res.locals.userInfo = result.rows[0];
       res.status(200);
     }
     return next();

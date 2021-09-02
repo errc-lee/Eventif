@@ -22,7 +22,11 @@ cookieController.setCookie = (req, res, next) => {
 };
 
 // Setting the session id to the aforementioned cookie's value
+<<<<<<< HEAD
 cookieController.setSSIDCookie = (req, res, next) => {
+=======
+cookieController.setSSIDCookie = async (req, res, next) => {
+>>>>>>> dev
   try {
     return next();
   } catch (err) {
