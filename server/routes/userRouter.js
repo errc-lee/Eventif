@@ -4,17 +4,36 @@ const userController = require('../controllers/userController');
 
 const userRouter = express.Router();
 
-// creating an account
-userRouter.get('/signup',(req, res) => {
-  res.send(200);
-  res.render(console.log('ok we got to this part just fine')); // <---I think this would render our actual signup page
-});
-
-// logging in
 userRouter.post('/signup', userController.createUser, (req, res) => {
-  res.status(200);
-  res.render(console.log('hi hello this works')); // <--- would this render the next page/component?
+  return res.status(200).json({
+    username: res.locals.username,
+    email: res.locals.email,
+  });
 });
 
-userRouter.post();
-module.export = userRouter;
+userRouter.get('/login', (req, res) => {
+  return res.status(200).json({
+    username: res.locals.username,
+    email: res.locals.email,
+  });
+});
+
+// userRouter.get('/', (req, res, next) => {
+//   return next();
+// });
+
+// -------Copied from server.js
+
+// app.post('/post', userController.createUser, (req, res) => {
+//   res.status(200);
+//   res.redirect('/client/Component/homepage.js');
+// });
+
+// app.post('/login', userController.verifyUser, (req, res) => {
+//   return res.json('yes');
+// });
+// creating an account
+// userRouter.get('/signup',(req, res) => {
+// });
+
+module.exports = userRouter;
