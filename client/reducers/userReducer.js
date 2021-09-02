@@ -19,19 +19,18 @@ const userReducer = (state = initialState, action) => {
         loginForm: { ...state.loginForm, [action.payload.field]: action.payload.value },
       };
 
-    // case types.SEND_LOGIN:
-    //   console.log('TRYING TO SEND LOGIN TO SERVER: ', action.payload.email, action.payload.password);
-    //   return state;
-
     case types.SEND_SIGNUP:
       console.log('TRYING TO SEND SIGNUP TO SERVER: ', action.payload.email, action.payload.username, action.payload.password);
       return state;
 
     case types.LOGIN_SUCCESSFUL:
       console.log('LOGGED IN SUCCESSFULLY!');
+      const { email, username } = action.payload;
       return {
         ...state,
         authUser: true,
+        username,
+        useremail: email,
       };
 
     case types.SEND_LOGOUT:

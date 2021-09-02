@@ -13,10 +13,12 @@ import Login from './Login.jsx';
 import Logout from './Logout.jsx';
 import Main from './Main.jsx';
 
-const mapStateToProps = ({ users }) =>({
+const mapStateToProps = ({ users }) => ({
   loginForm: users.loginForm,
   signupForm: users.signupForm,
   authUser: users.authUser,
+  username: users.username,
+  useremail: users.useremail,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -38,44 +40,55 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 // App Component
-const App = (props) => {
-  console.log('APP COMPONENT');
-  return (
-    <div>
-      <NavBar authUser={props.authUser} />
+const App = ({
+  authUser,
+  username,
+  useremail,
+  updateSignup,
+  signupForm,
+  sendSignup,
+  updateLogin,
+  loginForm,
+  sendLogin,
+  sendLogout
+}) => (
+  <div>
+    <NavBar
+      authUser={authUser}
+      username={username}
+      useremail={useremail}
+    />
 
-      {/* React Router Switches */}
-      <Switch>
-        <Route path="/watchlist">
-          <Watchlist />
-        </Route>
-        <Route path="/signup">
-          <Signup
-            updateSignup={props.updateSignup}
-            signupForm={props.signupForm}
-            sendSignup={props.sendSignup}
-          />
-        </Route>
-        <Route path="/login">
-          <Login
-            updateLogin={props.updateLogin}
-            loginForm={props.loginForm}
-            sendLogin={props.sendLogin}
-          />
-        </Route>
-        <Route path="/logout">
-          <Logout
-            authUser={props.authUser}
-            sendLogout={props.sendLogout}
-          />
-        </Route>
-        <Route path="/">
-          <Main />
-        </Route>
-      </Switch>
-
-    </div>
-  );
-};
+    {/* React Router Switches */}
+    <Switch>
+      <Route path="/watchlist">
+        <Watchlist />
+      </Route>
+      <Route path="/signup">
+        <Signup
+          updateSignup={updateSignup}
+          signupForm={signupForm}
+          sendSignup={sendSignup}
+        />
+      </Route>
+      <Route path="/login">
+        <Login
+          updateLogin={updateLogin}
+          loginForm={loginForm}
+          sendLogin={sendLogin}
+        />
+      </Route>
+      <Route path="/logout">
+        <Logout
+          authUser={authUser}
+          sendLogout={sendLogout}
+        />
+      </Route>
+      <Route path="/">
+        <Main />
+      </Route>
+    </Switch>
+  </div>
+);
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -35,9 +35,10 @@ export const updateSignupActionCreator = (field, value) => ({
   payload: { field, value },
 });
 
-export const sendSignupActionCreator = (email, username, password) => {
-  return (dispatch) => {
-    fetch('/post', {
+export const sendSignupActionCreator = (email, username, password) => (
+  // Return a function handled by redux-thunk
+  (dispatch) => {
+    fetch('/user/signup', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -47,17 +48,23 @@ export const sendSignupActionCreator = (email, username, password) => {
         email: email,
         password: password
       }),
-    }).then(response => {
+    }).then((response) => {
       console.log('RESPONSE FROM SERVER AFTER SIGNUP ATTEMPT: ', response.status);
       if (response.status === 200) {
+        return response.json();
+      }
+      throw new Error('Bad response from server when trying to sign up: ', response.status);
+    })
+      .then((loginData) => {
+        console.log('LOGIN DATA IS: ', loginData);
         dispatch({
           type: types.LOGIN_SUCCESSFUL,
+          payload: loginData,
         });
-      }
-    })
-      .catch(err => console.log('sendLoginActionCreator ERR:', err));
-  };
-};
+      })
+      .catch((err) => console.error('sendLoginActionCreator ERR:', err));
+  }
+);
 
 export const sendLogoutActionCreator = () => ({
   type: types.SEND_LOGOUT,

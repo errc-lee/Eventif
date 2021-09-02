@@ -12,6 +12,9 @@ const mapDispatchToProps = (dispatch) => ({
   getEvents: () => {
     dispatch(actions.getEventsActionCreator());
   },
+  chooseDate: (value) => {
+    dispatch(actions.getEventsActionCreator(range));
+  },
 });
 
 // WatchList Component
@@ -44,10 +47,12 @@ const Main = (props) => {
       <h1>Events on Today:</h1>
       <select>
         <option>Today</option>
-        <option>Next 7 Days</option>
-        <option>Next 30 Days</option>
+        <option value='7'onChange={(e) => props.chooseDate('value', e.target.value)} >Next 7 Days</option>
+        <option value='30' onChange={(e) => props.chooseDate('value', e.target.value)} >Next 30 Days</option>
       </select>
-      <button type="button">
+      <button type="button"
+      // onClick {() => props. > }
+      >
         Find Events
       </button>
       <h3>{`${props.eventList.length} events found:`}</h3>

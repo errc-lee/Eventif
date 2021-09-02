@@ -1,17 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const NavBar = (props) => {
+const NavBar = ({ authUser, username, useremail }) => {
   console.log('NAVBAR RENDERED');
 
   // If authenticated:
-  if (props.authUser) {
+  if (authUser) {
     return (
       <nav className="nav-bar">
         {/* <h1> THIS IS THE NAVBAR </h1> */}
         <Link to="/" className="nav-link">Home</Link>
         <Link to="/watchlist" className="nav-link"> Watchlist</Link>
         <Link to="/logout" className="nav-link">Logout</Link>
+        <span>{`${username} - ${useremail}`}</span>
       </nav>
     );
   }

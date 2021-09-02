@@ -33,13 +33,7 @@ module.exports = {
       directory: path.join(__dirname, '/client'),
     },
     proxy: {
-      '/post': {
-        target: 'http://localhost:3000/',
-      },
-      '/login': {
-        target: 'http://localhost:3000/',
-      },
-      '/homepage': {
+      '/user': {
         target: 'http://localhost:3000/',
       },
     },
