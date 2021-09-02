@@ -68,7 +68,6 @@ export const sendSignupActionCreator = (email, username, password) => (
 
 export const sendLogoutActionCreator = () => ({
   type: types.SEND_LOGOUT,
-  payload: { field, value },
 });
 
 // ## TICKET REDUCER ACTION TYPES ##

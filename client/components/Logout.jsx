@@ -2,18 +2,18 @@ import React, { useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 
 // Login Component
-const Logout = props => {
+const Logout = ({ authUser, sendLogout }) => {
   // Logout user out when logout component renders:
   useEffect(() => {
     console.log('LOGOUT COMPONENT SIGNING OUT USER');
-    props.sendLogout();
+    sendLogout();
   }, []);
 
-  if (props.authUser) {
+  if (authUser) {
     return <h1>Logging you out...</h1>;
   };
 
-  return <Redirec to="/" />;
+  return <Redirect to="/" />;
 };
 
 export default Logout;
