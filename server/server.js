@@ -1,15 +1,15 @@
 const express = require('express');
 const path = require('path');
-const mongoose = require('mongoose');
-const userController = require('./controllers/userController.js');
-
-const mongoURI = ('mongodb+srv://Daniel:codesmith@cluster0.mm1df.mongodb.net/Cluster0?retryWrites=true&w=majority');
 const app = express();
 const PORT = 3000;
 
-mongoose.connect(mongoURI);
+const userRouter = require('./routes/userRouter');
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
+// ROUTERS
+app.use('/user', userRouter);
 
 // MAIN GET REQUEST TO INDEX
 if (process.env.NODE_ENV !== 'development') {
@@ -20,32 +20,12 @@ if (process.env.NODE_ENV !== 'development') {
   app.use('/', (req, res) => res.status(200).sendFile(path.join(__dirname, '../client/index.html')));
 }
 
-// GET REQUEST FOR TEST PAGE
-// app.get('/homepage', (req, res) => {
-//   console.log('hello');
-//   res.sendFile(path.join(__dirname, '../frontend/components/homepage.js'))
-//   //res.render('../frontend/components/homepage.js')
-// });
+// CATCH ALL ERROR HANDLER
+app.use((req, res) => res.status(404).send('Not Found'));
 
-app.post('/post', userController.createUser, (req, res) => {
-  console.log('jake paul wins');
-  res.status(200);
-  res.redirect('/Frontend/Component/homepage.js');
-});
-
-app.post('/login', userController.verifyUser, (req, res) => {
-  return res.json('yes');
-});
-
-// 404 Handler
-app.use('*', (req, res) => {
-  res.status(404).send('Not Found');
-});
-
-// Global Error Handler
+// GLOBAL ERROR HANDLER
 app.use((err, req, res, next) => {
-  console.log(err);
-  res.status(500).send('Internal Server Error');
+  res.status(500).send(err);
 });
 
 module.exports = app.listen(PORT, () => { console.log(`Listening on port ${PORT}...`); });
