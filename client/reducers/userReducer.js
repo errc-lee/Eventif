@@ -5,9 +5,11 @@ import * as types from '../constants/actionTypes';
 const initialState = {
   username: null,
   useremail: null,
+  user_id: null,
   authUser: false,
   loginForm: { email: '', password: '' },
   signupForm: { email: '', username: '', password: '' },
+  watchlist: [],
 };
 
 const userReducer = (state = initialState, action) => {
@@ -25,10 +27,11 @@ const userReducer = (state = initialState, action) => {
 
     case types.LOGIN_SUCCESSFUL:
       console.log('LOGGED IN SUCCESSFULLY!');
-      const { email, username } = action.payload;
+      const { user_id, email, username } = action.payload;
       return {
         ...state,
         authUser: true,
+        user_id,
         username,
         useremail: email,
       };
@@ -38,6 +41,7 @@ const userReducer = (state = initialState, action) => {
       return {
         username: null,
         useremail: null,
+        user_id: null,
         authUser: false,
         loginForm: { email: '', password: '' },
         signupForm: { email: '', username: '', password: '' },
@@ -48,6 +52,13 @@ const userReducer = (state = initialState, action) => {
       return {
         ...state,
         signupForm: { ...state.signupForm, [action.payload.field]: action.payload.value },
+      };
+
+    case types.GET_WATCHLIST:
+      console.log('UPDATING WATCHLIST: ', action.payload);
+      return {
+        ...state,
+        watchlist: action.payload,
       };
 
     default:

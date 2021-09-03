@@ -19,6 +19,7 @@ const mapStateToProps = ({ users }) => ({
   authUser: users.authUser,
   username: users.username,
   useremail: users.useremail,
+  watchlist: users.watchlist,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -50,7 +51,8 @@ const App = ({
   updateLogin,
   loginForm,
   sendLogin,
-  sendLogout
+  sendLogout,
+  watchlist
 }) => (
   <div>
     <NavBar
@@ -62,7 +64,7 @@ const App = ({
     {/* React Router Switches */}
     <Switch>
       <Route path="/watchlist">
-        <Watchlist />
+        <Watchlist watchlist={watchlist} />
       </Route>
       <Route path="/signup">
         <Signup
@@ -87,7 +89,7 @@ const App = ({
         />
       </Route>
       <Route path="/">
-        <Main />
+        <Main authUser={authUser} />
       </Route>
     </Switch>
   </div>
