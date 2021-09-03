@@ -4,14 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node Backend/server.js",
+    "test": "cross-env NODE_ENV=production jest --verbose true",
+    "test-dev": "cross-env NODE_ENV=development jest --verbose false",
+    "start": "cross-env NODE_ENV=production node server/server.js",
     "build": "cross-env NODE_ENV=production webpack",
-    "dev": "cross-env NODE_ENV=development concurrently \"nodemon Backend/server.js\" \"webpack serve --open\""
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/The-OctDevs/TheNoseBleeds.git"
+    "dev": "cross-env NODE_ENV=development concurrently \"nodemon server/server.js\" \"webpack serve --open\""
   },
   "keywords": [],
   "author": "",
@@ -20,28 +17,53 @@
     "url": "https://github.com/The-OctDevs/TheNoseBleeds/issues"
   },
   "homepage": "https://github.com/The-OctDevs/TheNoseBleeds#readme",
+  "jest": {
+    "globalSetup": "./__tests__/_jest-setup.js",
+    "globalTeardown": "./__tests__/_jest-teardown.js",
+    "testPathIgnorePatterns": [
+      "__tests__/_"
+    ]
+  },
   "dependencies": {
+    "@popperjs/core": "^2.9.3",
     "bcryptjs": "^2.4.3",
-    "bootstrap": "^3.4.1",
-    "css-loader": "^6.2.0",
+    "bootstrap": "^5.1.0",
     "express": "^4.17.1",
     "mongoose": "^6.0.0",
-    "nodemon": "^2.0.12",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
+    "pg": "^8.7.1",
+    "react": "^16.14.0",
+    "react-dom": "^16.14.0",
+    "react-redux": "^7.2.4",
     "react-router-dom": "^5.2.1",
-    "sass": "^1.38.1",
-    "sass-loader": "^12.1.0",
-    "style-loader": "^3.2.1",
-    "webpack": "^5.51.1"
+    "redux": "^4.1.1",
+    "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
     "@babel/core": "^7.15.0",
     "@babel/preset-env": "^7.15.0",
     "@babel/preset-react": "^7.14.5",
+    "babel-core": "^6.26.3",
     "babel-loader": "^8.2.2",
     "concurrently": "^6.2.1",
     "cross-env": "^7.0.3",
+    "css-loader": "^6.2.0",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.6",
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-plugin-import": "^2.24.2",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-react": "^7.25.1",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "jest": "^27.1.0",
+    "nodemon": "^2.0.12",
+    "redux-devtools-extension": "^2.13.9",
+    "regenerator-runtime": "^0.13.9",
+    "sass": "^1.38.1",
+    "sass-loader": "^12.1.0",
+    "style-loader": "^3.2.1",
+    "supertest": "^6.1.6",
+    "webpack": "^5.51.1",
     "webpack-cli": "^4.8.0",
     "webpack-dev-server": "^4.0.0"
   }
