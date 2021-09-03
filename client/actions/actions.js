@@ -75,6 +75,57 @@ export const sendLogoutActionCreator = () => ({
   type: types.SEND_LOGOUT,
 });
 
+export const addWatchlistActionCreator = (event_id) => (
+  (dispatch, getState) => {
+    const { user_id } = getState().users;
+    fetch('/user/watchlist', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        user_id, event_id,
+      }),
+    })
+      .then((response) => {
+        console.log('REQUEST TO ADD TO WATCHLIST, RESPONSE IS: ', response.status);
+        if (response.status === 200) {
+          return response.json();
+        }
+        throw new Error('Bad response from server when trying to sign up: ', response.status);
+      })
+      .then((addedData) => {
+        console.log(addedData);
+      })
+      .catch((err) => console.error('sendLoginActionCreator ERR:', err));
+  });
+
+export const getWatchlistActionCreator = () => (
+  async (dispatch, getState) => {
+    console.log('INSIDE GET WATCHLIST ACTION CREATOR');
+    try {
+      const { user_id } = getState().users;
+      // Get all event_ids in watchlist
+      const watchlist = await fetch(`/user/watchlist/${user_id}`).then(response => response.json());
+      const apiStart = 'https://api.seatgeek.com/2/events/';
+      const apiEnd = '?client_id=MjMwODQ2OTZ8MTYzMDA5MTEwMy4xMjAzNg';
+      const watchListEvents = [];
+      for (let i = 0; i < watchlist.length; i += 1) {
+        console.log(watchlist[i].event_id);
+        console.log(i);
+        const event = await fetch(apiStart + watchlist[i].event_id + apiEnd).then(response => response.json());
+        watchListEvents.push(event);
+      }
+      console.log('TRIED TO GET WATCHLIST, result: ', watchListEvents);
+      dispatch({
+        type: types.GET_WATCHLIST,
+        payload: watchListEvents,
+      });
+    } catch(err) {
+      console.log('ERROR WHEN GETTING watchlist: ', err);
+    }
+  });
+
 // ## TICKET REDUCER ACTION TYPES ##
 export const getEventsActionCreator = (dateRange) => (
   (dispatch) => {
@@ -106,6 +157,7 @@ export const eventFilterActionCreator = (filterStr) => ({
   type: types.EVENT_FILTER,
   payload: filterStr,
 });
+
 
 // export const setDateRangeActionCreator = (dateRange) => ({
 //   type: types.SET_DATE_RANGE,
