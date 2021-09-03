@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const userController = require('../controllers/userController');
 const watchlistController = require('../controllers/watchlistController');
+const cookieController = require('../controllers/cookieController');
 
 const userRouter = express.Router();
 
@@ -13,6 +14,7 @@ userRouter.post('/signup',
 
 userRouter.post('/login',
   userController.login,
+  cookieController.setCookie,
   (req, res) => {
     return res.json(res.locals.userInfo);
   });
