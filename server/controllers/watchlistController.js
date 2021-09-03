@@ -38,6 +38,7 @@ watchlistController.addWatchlist = async (req, res, next) => {
 
     const { rows } = await db.query(addQ, [event_id, user_id]);
     res.locals.added = rows;
+    console.log('Successfullly added item to watchlist');
     return next();
   } catch (err) {
     return next({

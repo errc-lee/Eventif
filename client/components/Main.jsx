@@ -15,6 +15,10 @@ const mapDispatchToProps = (dispatch) => ({
   eventFilter: (filterStr) => {
     dispatch(actions.eventFilterActionCreator(filterStr));
   },
+  addWatchlist: (event_id) => {
+    dispatch(actions.addWatchlistActionCreator(event_id));
+  },
+
 });
 
 // WatchList Component
@@ -25,8 +29,11 @@ const Main = (props) => {
   }, []);
 
   console.log('THIS IS THE EVENTLIST: ', props.eventList, typeof props.eventList);
-  const events = props.eventList.map((eventObj) => (
-    <div className="event-card card mb-3">
+  const events = props.eventList.map((eventObj, i) => (
+    <div
+      className="event-card card mb-3"
+      key={i}
+    >
       <div className="row g-0">
 
         <div className="col-md-4 col-lg-3">
@@ -59,7 +66,16 @@ const Main = (props) => {
               )}
             <div className="btn-group">
               <a className="btn btn-sm btn-primary" href={eventObj.url}>Book Tickets</a>
-              <a className="btn btn-sm btn-info" href={eventObj.url}>Add to Watchlist</a>
+              {props.authUser ? (
+                <button
+                  type="button"
+                  className="btn btn-sm btn-info"
+                  onClick={() => props.addWatchlist(eventObj.id)}
+                >
+                  Add to Watchlist
+                </button>
+              )
+                : null }
             </div>
           </div>
         </div>
@@ -72,12 +88,15 @@ const Main = (props) => {
     <div className="container">
       <h1>Events Near You:</h1>
 
-      <p>Select Date Range:
+      <p>
+        Select Date Range:
         <select
-        onChange={(e) => {
-          console.log(e.target.value);
-          props.getEvents(e.target.value);
-        }}
+          onChange={
+            (e) => {
+              console.log(e.target.value);
+              props.getEvents(e.target.value);
+            }
+          }
         >
           <option value="">Next 24 Hours</option>
           <option value="7">Next 7 Days</option>
@@ -85,12 +104,15 @@ const Main = (props) => {
         </select>
       </p>
 
-      <p>Filter Events by type:
+      <p>
+        Filter Events by type:
         <select
-          onChange={(e) => {
-            console.log('CHanged event filter: ', e.target.value);
-            props.eventFilter(e.target.value);
-          }}
+          onChange={
+            (e) => {
+              console.log('Changed event filter: ', e.target.value);
+              props.eventFilter(e.target.value);
+            }
+          }
         >
           <option value="">All Events</option>
           <option value="sports">Sporting Events</option>
@@ -118,4 +140,4 @@ const Main = (props) => {
   );
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Main)
+export default connect(mapStateToProps, mapDispatchToProps)(Main);
