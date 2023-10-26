@@ -5,23 +5,33 @@
 }
 
 .card {
+  background-color: #fff;
   border: 1px solid #000000;
-  border-radius: 5%;
+  border-radius: 2%;
+  @extend .box-shadow;
   position: relative;
   overflow: hidden;
   @extend .flex-column;
   justify-content: space-between;
 
   &-image {
+    overflow: hidden;
+    min-height: 200px;
     position: relative;
     
     img {
       object-fit: contain;
       width: 100%;
       aspect-ratio: 4/3;
+      transition: transform .2s;
+
+      &:hover {
+        transform: scale(1.1);
+      }
     }
     
     .watchlist-btn {
+      @extend .box-shadow;
       z-index: 5;
       position: absolute;
       color: #fff;
@@ -41,7 +51,8 @@
     position: absolute;
     bottom: 0;
     background-color:var(--theme-color);
-    opacity: 95%;
+    @extend .box-shadow;
+    // opacity: 95%;
     font-size: .75em;
     line-height: 1.5rem;
     margin: unset;
@@ -59,41 +70,47 @@
 
   &-body {
     height: 100%;
-    padding: .5rem;
     @extend .flex-column;
     justify-content: space-between;
-    gap: 1rem;
   }
 
   &-heading {
+    margin: unset;
+    height: 50px;
+    width: 100%;
     font-weight: bold;
-    font-size: 1.5em;
-    overflow: clip;
-    margin: 1rem 0 1.5rem;
-    align-self: flex-start;
+    font-size: 1.25em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+    text-align: center;
+    background-color: #faedcd;
+    @extend .box-shadow;
   }
 
 
   &-prices {
-    margin-bottom: 0;
-
+    padding: .25rem;
+    @extend .flex-column;
+    align-items: center;
+    
     .price-info {
       display: flex;
       justify-content: space-between;
     }
-
+    
     .card-price {
-      flex-grow: 1;
       margin-right: 2rem;
 
       .price {
         &-label {
+          text-decoration: underline;
           font-weight: bold;
         }
   
         &-text{
           display: flex;
-          justify-content: space-between;
+          gap: 1.25rem;
         }
       }
     }
@@ -104,6 +121,7 @@
 
       .listing {
         &-label {
+          text-decoration: underline;
           font-weight: bold;
         }
       }
