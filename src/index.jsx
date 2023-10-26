@@ -6,11 +6,10 @@ import { Provider } from 'react-redux';
 import store from './store';
 
 // Import styles from SASS / BootStrap
-import bootstrap from 'bootstrap';
-import styles from './styles/application.scss';
+import './styles/admin.scss';
 
 // Import React Components
-import App from './components/App.jsx';
+import App from './components/App';
 
 render(
   <Provider store={store}>

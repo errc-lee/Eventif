@@ -9,11 +9,7 @@ const Logout = ({ authUser, sendLogout }) => {
     sendLogout();
   }, []);
 
-  if (authUser) {
-    return <h1>Logging you out...</h1>;
-  };
-
-  return <Redirect to="/" />;
+  return authUser ? <h1>Logging you out...</h1> : <Redirect to="/" />;
 };
 
 export default Logout;

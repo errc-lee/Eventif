@@ -2,37 +2,41 @@ import React from 'react';
 import { Redirect, Link } from 'react-router-dom';
 
 // Login Component
-const Signup = ({ authUser, updateSignup, signupForm, sendSignup }) => {
+const Signup = ({
+  authUser, updateSignup, signupForm, sendSignup,
+}) => {
   // If authorised redirect to root
   if (authUser) {
     return <Redirect to="/" />;
   }
 
+  const handleSubmit = () => sendSignup(signupForm.email, signupForm.username, signupForm.password);
+
   // Otherwise display signup page
   return (
-    <div className="signup-container">
-      <h1>Create an Account:</h1>
-      <ul>
-        <li>
-          Email:
+    <div className="signup container flex-column">
+      <h1>Create an Account :</h1>
+      <form className="flex-column" onSubmit={handleSubmit}>
+        <fieldset>
+          <legend>Email</legend>
           <input
             type="email"
             id="signup-email"
             required
             onChange={(e) => updateSignup('email', e.target.value)}
           />
-        </li>
-        <li>
-          Display Name:
+        </fieldset>
+        <fieldset>
+          <legend>Display Name</legend>
           <input
             type="text"
             id="signup-username"
             required
             onChange={(e) => updateSignup('username', e.target.value)}
           />
-        </li>
-        <li>
-          Password:
+        </fieldset>
+        <fieldset>
+          <legend>Password</legend>
           <input
             type="password"
             id="signup-pass"
@@ -40,17 +44,14 @@ const Signup = ({ authUser, updateSignup, signupForm, sendSignup }) => {
             required
             onChange={(e) => updateSignup('password', e.target.value)}
           />
-        </li>
-      </ul>
-      <button
-        className="signup-button"
-        type="button"
-        onClick={() => {
-          sendSignup(signupForm.email, signupForm.username, signupForm.password);
-        }}
-      >
-        Signup
-      </button>
+        </fieldset>
+        <button
+          className="signup-button"
+          type="submit"
+        >
+          Signup
+        </button>
+      </form>
       <p>
         Already have an account?
         <Link to="/login">Log in</Link>

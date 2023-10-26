@@ -6,12 +6,12 @@ import { connect } from 'react-redux';
 import * as actions from '../actions/actions';
 
 // Import React Components
-import NavBar from './NavBar.jsx';
-import Watchlist from './Watchlist.jsx';
-import Signup from './Signup.jsx';
-import Login from './Login.jsx';
-import Logout from './Logout.jsx';
-import Main from './Main.jsx';
+import NavBar from './NavBar';
+import Watchlist from './Watchlist';
+import Signup from './Signup';
+import Login from './Login';
+import Logout from './Logout';
+import Main from './Main';
 
 const mapStateToProps = ({ users }) => ({
   loginForm: users.loginForm,
@@ -52,7 +52,7 @@ const App = ({
   loginForm,
   sendLogin,
   sendLogout,
-  watchlist
+  watchlist,
 }) => (
   <div>
     <NavBar

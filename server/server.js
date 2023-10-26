@@ -1,5 +1,6 @@
 const express = require('express');
 const path = require('path');
+
 const app = express();
 const PORT = 3000;
 
@@ -12,12 +13,11 @@ app.use(express.json());
 app.use('/user', userRouter);
 
 // MAIN GET REQUEST TO INDEX
-if (process.env.NODE_ENV !== 'development') {
-  // Serve webpack build files from bundle
+if (import.meta.env.NODE_ENV !== 'development') {
   app.use('/build', express.static(path.join(__dirname, '../build')));
 
   // Serve main html page
-  app.use('/', (req, res) => res.status(200).sendFile(path.join(__dirname, '../client/index.html')));
+  app.use('/', (req, res) => res.status(200).sendFile(path.join(__dirname, '../src/index.html')));
 }
 
 // Unhandled Route Error Handler

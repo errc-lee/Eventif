@@ -1,0 +1,129 @@
+.card-container {
+  display: grid;
+  margin: 0 auto;
+  gap: 1rem;
+}
+
+.card {
+  border: 1px solid #000000;
+  border-radius: 5%;
+  position: relative;
+  overflow: hidden;
+  @extend .flex-column;
+  justify-content: space-between;
+
+  &-image {
+    position: relative;
+    
+    img {
+      object-fit: contain;
+      width: 100%;
+      aspect-ratio: 4/3;
+    }
+    
+    .watchlist-btn {
+      z-index: 5;
+      position: absolute;
+      color: #fff;
+      background-color: #52b788;
+      border: 1px solid #52b788;
+      border-radius: .25rem;
+      transform: translate(-10%, 25%);
+      top: 0;
+      right: 0;
+      padding: 4px;
+    }
+
+  }
+  
+  &-subheading {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    background-color:var(--theme-color);
+    opacity: 95%;
+    font-size: .75em;
+    line-height: 1.5rem;
+    margin: unset;
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    z-index: 2;
+
+    .date,
+    .time {
+      padding: .25rem .5rem;
+      color: #fff;
+    }
+  }
+
+  &-body {
+    height: 100%;
+    padding: .5rem;
+    @extend .flex-column;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  &-heading {
+    font-weight: bold;
+    font-size: 1.5em;
+    overflow: clip;
+    margin: 1rem 0 1.5rem;
+    align-self: flex-start;
+  }
+
+
+  &-prices {
+    margin-bottom: 0;
+
+    .price-info {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .card-price {
+      flex-grow: 1;
+      margin-right: 2rem;
+
+      .price {
+        &-label {
+          font-weight: bold;
+        }
+  
+        &-text{
+          display: flex;
+          justify-content: space-between;
+        }
+      }
+    }
+
+    .card-listing {
+      @extend .flex-column;
+      align-items: center;
+
+      .listing {
+        &-label {
+          font-weight: bold;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 600px) {
+  .card-container { 
+    grid-template-columns: repeat(2, 1fr); 
+  }
+
+  .card {
+    max-width: 275px;
+  }
+}
+
+@media screen and (min-width: 900px) {
+  .card-container { 
+    max-width: 1200px;
+    grid-template-columns: repeat(3, 1fr); 
+  }
+}
