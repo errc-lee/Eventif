@@ -17,7 +17,7 @@ const NavBar = ({ authUser, username, useremail }) => {
     : setIsMobile(false));
 
   const handleSessionMenu = () => setSessionMenu(!sessionMenu);
-  const mobileStyle = { display: `${isMobile && !sessionMenu ? 'none' : 'unset'}` };
+  const mobileStyle = { display: `${isMobile && !sessionMenu ? 'none' : 'flex'}` };
 
   useEffect(() => {
     window.addEventListener('resize', handleResize);
