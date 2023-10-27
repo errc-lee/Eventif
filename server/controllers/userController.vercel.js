@@ -1,4 +1,4 @@
-import { sql } from '@vercel/postgres';
+const { sql } = require('@vercel/postgres');
 
 const userController = {};
 
@@ -6,7 +6,6 @@ const userController = {};
 
 // CREATE USER MIDDLEWARE - for creating a new user
 userController.createUser = async (req, res, next) => {
-  // Need to handle case where username/email is already in database???
   try {
     const { email, username, password } = req.body;
     const { rows } = await sql`

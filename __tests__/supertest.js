@@ -1,7 +1,7 @@
 const request = require('supertest');
 require('dotenv').config();
 
-const server = `http://localhost:${process.env.PORT}`;
+const server = `http://localhost:${process.env.PORT || 5000}`;
 
 // SUPERTEST ROUTE TESTING
 

@@ -1,4 +1,4 @@
-import { sql } from '@vercel/postgres';
+const { sql } = require('@vercel/postgres');
 
 const watchlistController = {};
 
