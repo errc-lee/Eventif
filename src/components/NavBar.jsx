@@ -26,19 +26,14 @@ const NavBar = ({ authUser, username, useremail }) => {
   return (
     <nav>
       <div className="navbar">
-        {/* {NAVBAR BRAND} */}
-        <div className="nav-item navbar-logo">
-          <Link to="/">
-            Eventif
-          </Link>
-        </div>
-
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           {/* {NAVBAR LEFT} */}
           <div className="navbar-nav">
-            {/* <button className="nav-item" type="button">
-            <Link to="/" className="nav-link">Home</Link>
-          </button> */}
+            <div className="nav-item navbar-logo">
+              <Link to="/">
+                Eventif
+              </Link>
+            </div>
             {authUser
               ? (
                 <button className="nav-item" type="button">

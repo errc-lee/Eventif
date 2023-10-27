@@ -27,7 +27,8 @@ CREATE TABLE user_sessions (
 CREATE TABLE watchlist (
     watchlist_id SERIAL PRIMARY KEY,
     event_id INTEGER,
-    user_id INTEGER REFERENCES users
+    user_id INTEGER REFERENCES users,
+    UNIQUE (event_id, user_id)
 );
 
 -- Test Data

@@ -15,6 +15,10 @@ const Login = ({
     sendLogin(loginForm.email, loginForm.password);
   };
 
+  const guestLogin = () => {
+    sendLogin('guest@email.com', 'pass123');
+  };
+
   // Otherwise display login page
   return (
     <div className="login container flex-column">
@@ -51,6 +55,13 @@ const Login = ({
         No Account?
         <Link to="/login">Sign Up</Link>
       </p>
+      <button
+        className="login-button"
+        type="button"
+        onClick={guestLogin}
+      >
+        Login as Demo
+      </button>
     </div>
   );
 };
