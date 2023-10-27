@@ -120,11 +120,11 @@
       }
     }
     
-    
     &-subheading {
       position: absolute;
       height: 100%;
-      flex-direction: column;
+      flex-direction: column-reverse;
+
     }
 
     &-heading {
