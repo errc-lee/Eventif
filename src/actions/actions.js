@@ -19,20 +19,17 @@ export const sendLoginActionCreator = (email, password) => (
         password,
       }),
     }).then((response) => {
-      console.log('RESPONSE FROM SERVER AFTER LOGIN ATTEMPT: ', response.status);
       if (response.status === 200) {
         return response.json();
       }
-      throw new Error('Bad response from server when trying to login: ', response.status);
     })
       .then((loginData) => {
-        console.log('LOGIN DATA IS: ', loginData);
         dispatch({
           type: types.LOGIN_SUCCESSFUL,
           payload: loginData,
         });
       })
-      .catch((err) => console.log('sendLoginActionCreator ERR:', err));
+      .catch((err) => console.error('sendLoginActionCreator:', err));
   });
 
 export const updateSignupActionCreator = (field, value) => ({
@@ -54,20 +51,17 @@ export const sendSignupActionCreator = (email, username, password) => (
         password,
       }),
     }).then((response) => {
-      console.log('RESPONSE FROM SERVER AFTER SIGNUP ATTEMPT: ', response.status);
       if (response.status === 200) {
         return response.json();
       }
-      throw new Error('Bad response from server when trying to sign up: ', response.status);
     })
       .then((loginData) => {
-        console.log('SIGNUP DATA IS: ', loginData);
         dispatch({
           type: types.LOGIN_SUCCESSFUL,
           payload: loginData,
         });
       })
-      .catch((err) => console.error('sendSignupActionCreator ERR:', err));
+      .catch((err) => console.error('sendSignupActionCreator:', err));
   }
 );
 
@@ -88,21 +82,16 @@ export const addWatchlistActionCreator = (event_id) => (
       }),
     })
       .then((response) => {
-        console.log('REQUEST TO ADD TO WATCHLIST, RESPONSE IS: ', response.status);
         if (response.status === 200) {
           return response.json();
         }
         throw new Error('Bad response from server when trying to sign up: ', response.status);
       })
-      .then((addedData) => {
-        console.log(addedData);
-      })
-      .catch((err) => console.error('sendLoginActionCreator ERR:', err));
+      .catch((err) => console.error('sendLoginActionCreator:', err));
   });
 
 export const getWatchlistActionCreator = () => (
   async (dispatch, getState) => {
-    console.log('INSIDE GET WATCHLIST ACTION CREATOR');
     try {
       const { user_id } = getState().users;
       // Get all event_ids in watchlist
@@ -111,18 +100,16 @@ export const getWatchlistActionCreator = () => (
       const apiEnd = '?client_id=MjMwODQ2OTZ8MTYzMDA5MTEwMy4xMjAzNg';
       const watchListEvents = [];
       for (let i = 0; i < watchlist.length; i += 1) {
-        console.log(watchlist[i].event_id);
-        console.log(i);
         const event = await fetch(apiStart + watchlist[i].event_id + apiEnd).then((response) => response.json());
         watchListEvents.push(event);
       }
-      console.log('TRIED TO GET WATCHLIST, result: ', watchListEvents);
+
       dispatch({
         type: types.GET_WATCHLIST,
         payload: watchListEvents,
       });
     } catch (err) {
-      console.log('ERROR WHEN GETTING watchlist: ', err);
+      console.error('getWatchlistActionCreator: ', err);
     }
   });
 

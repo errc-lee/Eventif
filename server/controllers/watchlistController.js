@@ -9,7 +9,6 @@ const watchlistController = {};
 // );
 
 watchlistController.getWatchlist = async (req, res, next) => {
-  console.log('TRYING TO GET USERS WATCHLIST!!', req.params.id);
   try {
     const watchlistQ = `
     SELECT * FROM watchlist
@@ -28,7 +27,6 @@ watchlistController.getWatchlist = async (req, res, next) => {
 };
 
 watchlistController.addWatchlist = async (req, res, next) => {
-  console.log('TRYING TO ADD EVENT TO USERS WATCHLIST!!', req.body);
   try {
     const { user_id, event_id } = req.body;
 
