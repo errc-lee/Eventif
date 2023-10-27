@@ -29,7 +29,7 @@ const Card = ({ addWatchlist, isAuth, data }) => {
             className="watchlist-btn"
             onClick={() => addWatchlist(id)}
           >
-            <span className="uppercase bold">
+            <span className="watchlist-text uppercase bold">
               Add to Watchlist
             </span>
           </button>
