@@ -1,16 +1,7 @@
-
-# General
 .DS_Store
 .env
-
-# dependencies
+*.local
 node_modules/
-
-# logs
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-# output from webpack
 build/
+dist/
 package-lock.json

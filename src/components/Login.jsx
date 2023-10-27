@@ -10,7 +10,10 @@ const Login = ({
     return <Redirect to="/" />;
   }
 
-  const handleSubmit = () => sendLogin(loginForm.email, loginForm.password);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    sendLogin(loginForm.email, loginForm.password);
+  };
 
   // Otherwise display login page
   return (

@@ -1,6 +1,10 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
+require('dotenv').config();
+
+const PORT = process.env.PORT || 3000;
+
 export default defineConfig({
   root: 'src',
   build: {
@@ -8,12 +12,13 @@ export default defineConfig({
     outDir: '../dist',
   },
   // depending on your application, base can also be "/"
-  base: '',
+  // base: '',
   plugins: [react()],
   server: {
-    // this ensures that the browser opens upon server start
-    open: true,
-    // this sets a default port to 3000
-    port: 3000,
+    proxy: {
+      '/user': {
+        target: `http://localhost:${PORT}`,
+      },
+    },
   },
 });

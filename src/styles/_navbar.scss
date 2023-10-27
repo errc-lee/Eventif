@@ -1,6 +1,7 @@
 /* ### NAVBAR ### */
 :root {
-  --theme-color: rgb(47, 121, 196)
+  --nav-height: 50px;
+  --theme-color: rgb(47, 121, 196);
 }
 
 
@@ -8,7 +9,7 @@
   background-color: var(--theme-color);
   display: flex;
   align-items: center;
-  height: 50px;
+  height: var(--nav-height);
   @extend .box-shadow;
 
   .nav-item > * {
@@ -37,44 +38,80 @@
     padding: 0 1rem;
     gap: 1rem;
 
-    li {
-      list-style-type: none;
-    }
-
     button {
       cursor: pointer;
       position: relative;
       border: none;
       background: none;
-      transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
-      transition-duration: 400ms;
-      transition-property: color;
+    }
+  }
 
-      &:focus,
-      &:hover {
-        color: #fff;
-      }
+  &-profile-icon {
+    color: #fff;
+    align-self: center;
+    display: none;
+  }
 
-      &:focus:after,
-      &:hover:after {
-        width: 100%;
-        left: 0%;
+  @media screen and (max-width: 600px) {
+    .navbar {
+      overflow: hidden;
+
+      &-profile-icon {
+        display: unset;
       }
-  
-      &:after {
-        content: "";
-        pointer-events: none;
-        bottom: -2px;
-        left: 50%;
+      
+      &-session {
+        background-color: var(--theme-color);
         position: absolute;
-        width: 0%;
-        height: 2px;
-        background-color: #fff;
-        transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
-        transition-duration: 400ms;
-        transition-property: width, left;
+        left: 0;
+        top: 50px;
+        width: 100%;
+      }
+      
+      &-nav {
+        .nav-item {
+          display: inline-block;
+          width: 100%;
+          padding: .5em 0;
+        }
       }
     }
+  }
 
+  @media screen and (min-width: 600px) {
+    .navbar {
+      &-nav {
+        button {
+          transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+          transition-duration: 400ms;
+          transition-property: color;
+
+          &:focus,
+          &:hover {
+            color: #fff;
+          }
+
+          &:focus:after,
+          &:hover:after {
+            width: 100%;
+            left: 0%;
+          }
+      
+          &:after {
+            content: "";
+            pointer-events: none;
+            bottom: -2px;
+            left: 50%;
+            position: absolute;
+            width: 0%;
+            height: 2px;
+            background-color: #fff;
+            transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+            transition-duration: 400ms;
+            transition-property: width, left;
+          }
+        }
+      }
+    }
   }
 }

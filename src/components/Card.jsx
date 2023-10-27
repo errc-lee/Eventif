@@ -26,17 +26,19 @@ const Card = ({ addWatchlist, isAuth, data }) => {
             className="watchlist-btn"
             onClick={() => addWatchlist(id)}
           >
-            Add to Watchlist
+            <span className="uppercase bold">
+              Add to Watchlist
+            </span>
           </button>
         )}
-        <h6 className="card-subheading">
+        <div className="card-subheading">
           <span className="date">
             {dateTimeLocal.slice(0, 10)}
           </span>
           <span className="time">
             {dateTimeLocal.slice(11)}
           </span>
-        </h6>
+        </div>
       </div>
 
       <div className="card-body">
@@ -49,7 +51,7 @@ const Card = ({ addWatchlist, isAuth, data }) => {
             ? (
               <div className="price-info">
                 <div className="card-price">
-                  <span className="price-label">Price</span>
+                  <span className="price-label">Price:</span>
                   <div className="price-text">
                     <span>
                       {`Lowest $${lowestPrice}`}
@@ -60,7 +62,7 @@ const Card = ({ addWatchlist, isAuth, data }) => {
                   </div>
                 </div>
                 <div className="card-listing">
-                  <span className="listing-label">Listings</span>
+                  <span className="listing-label">Listings:</span>
                   <span>{listingCount}</span>
                 </div>
               </div>

@@ -1,4 +1,4 @@
-const db = require('../models/userModel');
+const db = require('../database');
 
 const watchlistController = {};
 
@@ -31,6 +31,7 @@ watchlistController.addWatchlist = async (req, res, next) => {
   console.log('TRYING TO ADD EVENT TO USERS WATCHLIST!!', req.body);
   try {
     const { user_id, event_id } = req.body;
+
     const addQ = `
       INSERT INTO watchlist (event_id, user_id)
       VALUES ($1, $2)

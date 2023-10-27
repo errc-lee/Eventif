@@ -1,3 +1,3 @@
-const db = require('../models/userModel');
+const db = require('../elphantsql');
 
 const sessionController = {};

@@ -1,4 +1,4 @@
-const db = require('../models/userModel');
+const db = require('../database');
 
 const userController = {};
 
@@ -6,20 +6,17 @@ const userController = {};
 
 // CREATE USER MIDDLEWARE - for creating a new user
 userController.createUser = async (req, res, next) => {
-  console.log('trying to create user', req.body);
-
   // Need to handle case where username/email is already in database???
   try {
     const { email, username, password } = req.body;
     const userQ = `
-      INSERT INTO users (email, username, pw)
-      VALUES ($1, $2, $3)
+      INSERT INTO users (email, username, password, created_on)
+      VALUES ($1, $2, $3, current_timestamp)
       RETURNING user_id, email, username`;
     const result = await db.query(userQ, [email, username, password]);
     res.locals.createdUser = result.rows[0];
     return next();
-  }
-  catch (err) {
+  } catch (err) {
     return next({
       log: `Error in userController.createUser, ERROR: ${err} `,
       message: { err: 'Error creating new user in DB' },
@@ -38,7 +35,7 @@ userController.login = async (req, res, next) => {
     const queryString = `
       SELECT user_id, email, username
       FROM users
-      WHERE email = $1 AND pw = $2;`;
+      WHERE email = $1 AND password = $2;`;
     const result = await db.query(queryString, data);
 
     // Check if there exists email in database
@@ -49,8 +46,7 @@ userController.login = async (req, res, next) => {
       res.status(200);
     }
     return next();
-  }
-  catch (err) {
+  } catch (err) {
     return next({
       log: `Error in userController.login, ERROR: ${err} `,
       message: { err: 'Error logging in' },

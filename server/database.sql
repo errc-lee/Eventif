@@ -10,11 +10,12 @@
 -- SET row_security = off;
 
 CREATE TABLE users (
-
-    user_id SERIAL PRIMARY KEY,
-    email TEXT UNIQUE,
-    username TEXT UNIQUE,
-    pw TEXT
+	user_id serial PRIMARY KEY,
+	username VARCHAR ( 50 ) UNIQUE NOT NULL,
+	password VARCHAR ( 50 ) NOT NULL,
+	email VARCHAR ( 255 ) UNIQUE NOT NULL,
+	created_on TIMESTAMP NOT NULL,
+    last_login TIMESTAMP 
 );
 
 CREATE TABLE user_sessions (
@@ -28,12 +29,13 @@ CREATE TABLE watchlist (
     event_id INTEGER,
     user_id INTEGER REFERENCES users
 );
+
 -- Test Data
-INSERT INTO users (email, username, pw)
-VALUES ('test@gmail.com', 'test123', 'password321');
+-- INSERT INTO users (email, username, password)
+-- VALUES ('test@gmail.com', 'test123', 'password123');
 
-INSERT INTO watchlist (event_id, user_id)
-VALUES (420, 1);
+-- INSERT INTO watchlist (event_id, user_id)
+-- VALUES (420, 1);
 
-INSERT INTO user_sessions (user_id)
-VALUES (1);
+-- INSERT INTO user_sessions (user_id)
+-- VALUES (1);

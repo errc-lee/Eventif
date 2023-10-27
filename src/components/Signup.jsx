@@ -10,7 +10,10 @@ const Signup = ({
     return <Redirect to="/" />;
   }
 
-  const handleSubmit = () => sendSignup(signupForm.email, signupForm.username, signupForm.password);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    sendSignup(signupForm.email, signupForm.username, signupForm.password);
+  };
 
   // Otherwise display signup page
   return (
