@@ -16,6 +16,9 @@ const Card = ({ addWatchlist, isAuth, data }) => {
     average_price: averagePrice,
   } = stats;
 
+  const date = dateTimeLocal.slice(0, 10);
+  const time = dateTimeLocal.slice(11);
+
   return (
     <div className="card">
       <div className="card-image">
@@ -33,10 +36,10 @@ const Card = ({ addWatchlist, isAuth, data }) => {
         )}
         <div className="card-subheading">
           <span className="date">
-            {dateTimeLocal.slice(0, 10)}
+            {date}
           </span>
           <span className="time">
-            {dateTimeLocal.slice(11)}
+            {time}
           </span>
         </div>
       </div>

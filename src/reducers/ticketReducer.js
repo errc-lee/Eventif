@@ -17,7 +17,6 @@ const ticketReducer = (state = initialState, action) => {
       if (state.eventFilter) {
         newEventList = allEvents.filter((event) => {
           for (let i = 0; i < event.taxonomies.length; i += 1) {
-            console.log(event.taxonomies[i].name);
             if (event.taxonomies[i].name === state.eventFilter) {
               return true;
             }
@@ -38,7 +37,6 @@ const ticketReducer = (state = initialState, action) => {
       if (action.payload) {
         newEventList = state.allEvents.filter((event) => {
           for (let i = 0; i < event.taxonomies.length; i += 1) {
-            console.log(event.taxonomies[i].name);
             if (event.taxonomies[i].name === action.payload) {
               return true;
             }

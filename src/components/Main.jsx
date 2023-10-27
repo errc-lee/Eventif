@@ -32,7 +32,6 @@ const Main = ({
     getEvents();
   }, []);
 
-  // console.log('THIS IS THE EVENTLIST: ', eventList, typeof eventList);
   const events = useMemo(() => eventList.map((data) => (
     <Card isAuth={authUser} data={data} addWatchlist={addWatchlist} key={data.id} />
   )), [eventList]);

@@ -5,7 +5,6 @@ import { Redirect } from 'react-router-dom';
 const Logout = ({ authUser, sendLogout }) => {
   // Logout user out when logout component renders:
   useEffect(() => {
-    console.log('LOGOUT COMPONENT SIGNING OUT USER');
     sendLogout();
   }, []);
 
