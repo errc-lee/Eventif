@@ -1,11 +1,7 @@
-require('dotenv').config();
-
 const { Pool } = require('pg');
 
-const connectionString = process.env.POSTGRES_URL;
-
 const pool = new Pool({
-  connectionString,
+  connectionString: process.env.POSTGRES_URL,
 });
 
 // Test the database connection

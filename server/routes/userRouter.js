@@ -1,6 +1,6 @@
 const express = require('express');
-const userController = require('../controllers/userController');
-const watchlistController = require('../controllers/watchlistController');
+const userController = require('../controllers/userController.vercel');
+const watchlistController = require('../controllers/watchlistController.vercel');
 const cookieController = require('../controllers/cookieController');
 
 const userRouter = express.Router();
