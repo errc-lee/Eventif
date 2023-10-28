@@ -9,7 +9,8 @@ export const updateLoginActionCreator = (field, value) => ({
 
 export const sendLoginActionCreator = (email, password) => (
   (dispatch) => {
-    fetch('/user/login', {
+    // USE RELATIVE PATH IF NOT USING VERCEL OR TESTING LOCALLY
+    fetch(`http://${process.env.VERCEL_URL}/user/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -40,7 +41,7 @@ export const updateSignupActionCreator = (field, value) => ({
 export const sendSignupActionCreator = (email, username, password) => (
   // Return a function handled by redux-thunk
   (dispatch) => {
-    fetch('/user/signup', {
+    fetch(`http://${process.env.VERCEL_URL}/user/signup`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -72,7 +73,7 @@ export const sendLogoutActionCreator = () => ({
 export const addWatchlistActionCreator = (event_id) => (
   (dispatch, getState) => {
     const { user_id } = getState().users;
-    fetch('/user/watchlist', {
+    fetch(`http://${process.env.VERCEL_URL}/user/watchlist`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
