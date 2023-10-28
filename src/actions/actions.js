@@ -9,7 +9,6 @@ export const updateLoginActionCreator = (field, value) => ({
 
 export const sendLoginActionCreator = (email, password) => (
   (dispatch) => {
-    console.log(email, password);
     fetch('/user/login', {
       method: 'POST',
       headers: {
@@ -25,6 +24,7 @@ export const sendLoginActionCreator = (email, password) => (
       }
     })
       .then((loginData) => {
+        console.log(loginData);
         dispatch({
           type: types.LOGIN_SUCCESSFUL,
           payload: loginData,
